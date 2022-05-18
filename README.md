@@ -1,0 +1,1 @@
+Gathers some system info and generates a serializable report.
