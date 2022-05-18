@@ -9,9 +9,7 @@ use std::{
 //pub type Bytes = u64;
 
 use bytes::Bytes;
-use sysinfo::{
-    DiskExt, DiskType, ProcessorExt, System, SystemExt, UserExt,
-};
+use sysinfo::{DiskExt, DiskType, ProcessorExt, System, SystemExt, UserExt};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Disk {
@@ -104,7 +102,7 @@ pub struct Kernel {
     pub version: Option<String>,
 }
 
-pub const TEST_DNS_FOR: &[&str] = &["google.com", "microsoft.com", "example.com"];
+pub const TEST_DNS_FOR: &[&str] = &["google.com", "microsoft.com", "example.com", "docker.io"];
 
 pub fn get_report() -> Report {
     // Please note that we use "new_all" to ensure that all list of
