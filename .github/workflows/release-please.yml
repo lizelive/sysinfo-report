@@ -2,12 +2,47 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 name: release-please
+env:
+  CARGO_TERM_COLOR: always
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@v1
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
   release-please:
+    needs: [test]
+    if: ${{ github.event_name != 'pull_request' }}
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
         with:
           release-type: rust
           package-name: sysinfo-report
+  publish:
+    needs: [release-please]
+    runs-on: ubuntu-latest
+    if: ${{ steps.release.outputs.release_created }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: Swatinem/rust-cache@v1
+      - uses: actions-rs/cargo@v1
+        env:
+          CARGO_REGISTRY_TOKEN: ${{secrets.CARGO_REGISTRY_TOKEN}}
+        with:
+          command: publish
