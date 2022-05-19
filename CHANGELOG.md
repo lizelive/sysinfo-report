@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/lizelive/sysinfo-report/compare/v0.1.0...v0.2.0) (2022-05-19)
+
+
+### Features
+
+* make everything public ([9b8c2b5](https://github.com/lizelive/sysinfo-report/commit/9b8c2b5267a520f74e8b502a95b05d994fa22264))
+
 ## 0.1.0 (2022-05-18)
 
 
