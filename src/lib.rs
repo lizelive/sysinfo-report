@@ -77,7 +77,6 @@ mod tests {
 pub struct Processor {
     name: String,
     vendor_id: String,
-    brand: String,
 }
 
 pub type Uid = u32;
