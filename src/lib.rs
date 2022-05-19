@@ -30,12 +30,13 @@ pub struct Report {
     pub disks: Vec<Disk>,
     pub memory: MemoryReport,
     pub processor: Processor,
+    pub processors: Vec<Processor>,
     pub uptime: u64,
     pub users: Vec<User>,
     pub networks: Vec<String>,
-    os: OperatingSystem,
-    kernel: Kernel,
-    dns_test: HashMap<String, DnsResult>,
+    pub os: OperatingSystem,
+    pub kernel: Kernel,
+    pub dns_test: HashMap<String, DnsResult>,
 }
 
 #[derive(Serialize, Deserialize, Debug, PartialEq, Clone, Copy)]
@@ -142,6 +143,13 @@ pub fn get_report() -> Report {
         name: processor.name().into(),
         vendor_id: processor.vendor_id().into(),
     };
+
+    let processors: Vec<_> = sys.processors().into_iter().map(|processor| Processor {
+        brand: processor.brand().into(),
+        name: processor.name().into(),
+        vendor_id: processor.vendor_id().into(),
+    }).collect();
+
     let uptime = sys.uptime();
 
     let users = sys.users();
@@ -200,6 +208,7 @@ pub fn get_report() -> Report {
         host_name,
         memory,
         processor,
+        processors,
         uptime,
         users,
         networks,
