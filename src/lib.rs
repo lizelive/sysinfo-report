@@ -75,9 +75,9 @@ mod tests {
 
 #[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub struct Processor {
-    name: String,
-    vendor_id: String,
-    brand: String,
+    pub name: String,
+    pub vendor_id: String,
+    pub brand: String,
 }
 
 pub type Uid = u32;
