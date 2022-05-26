@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/lizelive/sysinfo-report/compare/v0.2.0...v1.0.0) (2022-05-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* changed tested dns endpoints
+
+### Features
+
+* changed tested dns endpoints ([5248418](https://github.com/lizelive/sysinfo-report/commit/5248418b5eb4db616ed1460c3b78180885a80a9b))
+
 ## [0.2.0](https://github.com/lizelive/sysinfo-report/compare/v0.1.0...v0.2.0) (2022-05-19)
 
 
