@@ -39,6 +39,12 @@ pub struct Report {
     pub dns_test: HashMap<String, DnsResult>,
 }
 
+impl Default for Report {
+    fn default() -> Self {
+        get_report()
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, PartialEq, Clone, Copy)]
 pub enum DiskKind {
     /// HDD type.
@@ -106,9 +112,6 @@ pub struct Kernel {
 pub const TEST_DNS_FOR: &[&str] = &["localhost", "ghcr.io", "docker.io"];
 
 pub fn get_report() -> Report {
-    // Please note that we use "new_all" to ensure that all list of
-    // components, network interfaces, disks and users are already
-    // filled!
     let sys = System::new_all();
 
     let os = OperatingSystem {
@@ -144,11 +147,15 @@ pub fn get_report() -> Report {
         vendor_id: processor.vendor_id().into(),
     };
 
-    let processors: Vec<_> = sys.processors().into_iter().map(|processor| Processor {
-        brand: processor.brand().into(),
-        name: processor.name().into(),
-        vendor_id: processor.vendor_id().into(),
-    }).collect();
+    let processors: Vec<_> = sys
+        .processors()
+        .into_iter()
+        .map(|processor| Processor {
+            brand: processor.brand().into(),
+            name: processor.name().into(),
+            vendor_id: processor.vendor_id().into(),
+        })
+        .collect();
 
     let uptime = sys.uptime();
 
