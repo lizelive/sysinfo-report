@@ -2,10 +2,7 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
-name: release-please
+name: cd
 env:
   CARGO_TERM_COLOR: always
 jobs:
