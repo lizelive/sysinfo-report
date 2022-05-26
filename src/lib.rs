@@ -157,7 +157,7 @@ pub fn get_report() -> Report {
 
     let processors: Vec<_> = sys
         .processors()
-        .into_iter()
+        .iter()
         .map(|processor| Processor {
             brand: processor.brand().into(),
             name: processor.name().into(),
@@ -170,12 +170,12 @@ pub fn get_report() -> Report {
     let users = sys.users();
 
     let users: Vec<_> = users
-        .into_iter()
+        .iter()
         .map(|user| User {
-            gid: (*user.gid()).into(),
+            gid: (*user.gid()),
             groups: user.groups().into(),
             name: user.name().into(),
-            uid: (*user.uid()).into(),
+            uid: (*user.uid()),
         })
         .collect();
 
