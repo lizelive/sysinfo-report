@@ -9,6 +9,6 @@ description = "gathers some basic system info and generates a serializable repor
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-sysinfo = "0.23.12"
+sysinfo = "0.23"
 bytes = { version = "1", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }
