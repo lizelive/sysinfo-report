@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/lizelive/sysinfo-report/compare/v1.0.0...v1.1.0) (2022-05-26)
+
+
+### Features
+
+* add default ([4b5747b](https://github.com/lizelive/sysinfo-report/commit/4b5747b64929b770f3a85a683899e8471e816043))
+* add network_interfaces ([ee2a9b2](https://github.com/lizelive/sysinfo-report/commit/ee2a9b2a6bc119ec51724c63a3cab8fa68e3224e))
+
+
+### Bug Fixes
+
+* fix all clippy warnings ([d26dc3b](https://github.com/lizelive/sysinfo-report/commit/d26dc3be9529214eeb3385c2be7236c33fd391db))
+
 ## [1.0.0](https://github.com/lizelive/sysinfo-report/compare/v0.2.0...v1.0.0) (2022-05-26)
 
 
