@@ -12,3 +12,4 @@ description = "gathers some basic system info and generates a serializable repor
 sysinfo = "0.23"
 bytes = { version = "1", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }
+local-ip-address = "0.4"

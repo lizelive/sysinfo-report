@@ -1,4 +1,5 @@
 use ::serde::{Deserialize, Serialize};
+use local_ip_address::list_afinet_netifas;
 
 pub const KIBIBYTE: u64 = 1024;
 use std::{
@@ -37,6 +38,13 @@ pub struct Report {
     pub os: OperatingSystem,
     pub kernel: Kernel,
     pub dns_test: HashMap<String, DnsResult>,
+    pub network_interfaces: Result<Vec<NetworkInterface>, String>,
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
+pub struct NetworkInterface {
+    pub name: String,
+    pub ip: IpAddr,
 }
 
 impl Default for Report {
@@ -210,6 +218,14 @@ pub fn get_report() -> Report {
         })
         .collect();
 
+    let network_interfaces = list_afinet_netifas()
+        .map_err(|err| err.to_string())
+        .map(|ok| {
+            ok.into_iter()
+                .map(|(name, ip)| NetworkInterface { ip, name })
+                .collect()
+        });
+
     Report {
         disks,
         host_name,
@@ -222,5 +238,6 @@ pub fn get_report() -> Report {
         os,
         kernel,
         dns_test,
+        network_interfaces,
     }
 }
