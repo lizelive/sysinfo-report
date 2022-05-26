@@ -103,7 +103,7 @@ pub struct Kernel {
     pub version: Option<String>,
 }
 
-pub const TEST_DNS_FOR: &[&str] = &["google.com", "microsoft.com", "example.com", "docker.io"];
+pub const TEST_DNS_FOR: &[&str] = &["localhost", "ghcr.io", "docker.io"];
 
 pub fn get_report() -> Report {
     // Please note that we use "new_all" to ensure that all list of
