@@ -1,15 +1,22 @@
 on:
   release:
     types:
-      - published
+      # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=released#release
+      # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
+      # A release was published, or a pre-release was changed to a release.
+      - released
+      # A release, pre-release, or draft of a release was published.
+      # - published
+  workflow_dispatch:
+permissions:
+  contents: read
 name: publish
 env:
   CARGO_TERM_COLOR: always
 jobs:
   publish:
-    needs: [release-please]
     runs-on: ubuntu-latest
-    if: ${{ needs.release-please.outputs.release_created }}
+    environment: cargo
     steps:
       - uses: actions/checkout@v3
       - uses: Swatinem/rust-cache@v1
