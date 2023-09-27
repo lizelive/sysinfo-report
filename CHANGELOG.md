@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/lizelive/sysinfo-report/compare/v1.1.1...v1.1.2) (2023-09-27)
+
+
+### Miscellaneous Chores
+
+* release 1.1.2 ([b34aaa1](https://github.com/lizelive/sysinfo-report/commit/b34aaa1500a15d99eae27243309b385608b43afe))
+
 ## [1.1.1](https://github.com/lizelive/sysinfo-report/compare/v1.1.0...v1.1.1) (2023-09-27)
 
 
