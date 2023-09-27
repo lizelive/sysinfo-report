@@ -1,5 +1,12 @@
 {
   "image": "mcr.microsoft.com/devcontainers/rust:1",
   "features": {
-  }
+},
+"customizations": {
+	"vscode": {
+		"extensions": [
+			"redhat.vscode-yaml"
+		]
+	}
+}
 }
