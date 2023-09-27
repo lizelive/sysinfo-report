@@ -10,7 +10,7 @@ use std::{
 //pub type Bytes = u64;
 
 use bytes::Bytes;
-use sysinfo::{DiskExt, DiskType, ProcessorExt, System, SystemExt, UserExt};
+use sysinfo::{CpuExt, DiskExt, System, SystemExt, UserExt};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Disk {
@@ -117,7 +117,30 @@ pub struct Kernel {
     pub version: Option<String>,
 }
 
-pub const TEST_DNS_FOR: &[&str] = &["localhost", "ghcr.io", "docker.io"];
+pub const TEST_DNS_FOR: &[&str] = &["localhost", "ghcr.io", "docker.io", "mcr.microsoft.com"];
+
+fn convert_user(#[allow(unused_variables)] user: &sysinfo::User) -> User {
+    #[cfg(unix)]
+    return User {
+        groups: user.groups().into(),
+        name: user.name().into(),
+        gid: (*user.group_id()),
+        uid: (**user.id()),
+    };
+
+    #[cfg(windows)]
+    return User {
+        groups: user.groups().into(),
+        name: user.name().into(),
+        gid: 1000,
+        uid: 1000,
+    };
+
+    #[allow(unreachable_code)]
+    {
+        unimplemented!("cannot convert user on this platform");
+    }
+}
 
 pub fn get_report() -> Report {
     let sys = System::new_all();
@@ -147,7 +170,7 @@ pub fn get_report() -> Report {
         },
     };
 
-    let processor = sys.global_processor_info();
+    let processor = sys.global_cpu_info();
 
     let processor = Processor {
         brand: processor.brand().into(),
@@ -156,7 +179,7 @@ pub fn get_report() -> Report {
     };
 
     let processors: Vec<_> = sys
-        .processors()
+        .cpus()
         .iter()
         .map(|processor| Processor {
             brand: processor.brand().into(),
@@ -169,15 +192,7 @@ pub fn get_report() -> Report {
 
     let users = sys.users();
 
-    let users: Vec<_> = users
-        .iter()
-        .map(|user| User {
-            gid: (*user.gid()),
-            groups: user.groups().into(),
-            name: user.name().into(),
-            uid: (*user.uid()),
-        })
-        .collect();
+    let users: Vec<_> = users.iter().map(convert_user).collect();
 
     let networks: Vec<_> = sys
         .networks()
@@ -205,10 +220,10 @@ pub fn get_report() -> Report {
         .iter()
         .map(|disk| Disk {
             available_space: disk.available_space(),
-            kind: match disk.type_() {
-                DiskType::HDD => DiskKind::HardDiskDrive,
-                DiskType::SSD => DiskKind::SolidStateDrive,
-                DiskType::Unknown(kind) => DiskKind::Unknown(kind),
+            kind: match disk.kind() {
+                ::sysinfo::DiskKind::HDD => DiskKind::HardDiskDrive,
+                ::sysinfo::DiskKind::SSD => DiskKind::SolidStateDrive,
+                ::sysinfo::DiskKind::Unknown(kind) => DiskKind::Unknown(kind),
             },
             name: disk.name().to_string_lossy().into(),
             file_system: Bytes::copy_from_slice(disk.file_system()),
