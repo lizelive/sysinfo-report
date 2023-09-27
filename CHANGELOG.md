@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/lizelive/sysinfo-report/compare/v1.1.0...v1.1.1) (2023-09-27)
+
+
+### Bug Fixes
+
+* compiles on windows ([cc7cf8f](https://github.com/lizelive/sysinfo-report/commit/cc7cf8fc976946d4269b0e90e9ba9a5aab53124b))
+
 ## [1.1.0](https://github.com/lizelive/sysinfo-report/compare/v1.0.0...v1.1.0) (2022-05-26)
 
 
